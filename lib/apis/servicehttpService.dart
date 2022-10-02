@@ -1,3 +1,4 @@
+import 'package:bayfrontend/constants/index.dart';
 import 'package:bayfrontend/model/Service.dart';
 import 'package:bayfrontend/model/ServiceType.dart';
 import 'package:bayfrontend/model/User.dart';
@@ -16,6 +17,7 @@ import '../model/Photo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ServiceHttpService {
+  Constants me = Constants();
   static const BASE_URL = "http://localHost:8082";
   static const TodaySaleEnpoint = '$BASE_URL/admin/todaySales';
   static const RangeSaleEnpoint = '$BASE_URL/admin/rangeSales';

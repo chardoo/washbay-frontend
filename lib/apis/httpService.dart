@@ -11,8 +11,11 @@ import 'package:bayfrontend/model/Event.dart';
 import '../model/LoginResponse.dart';
 import '../model/Photo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bayfrontend/constants/index.dart';
 
 class HttpService {
+  Constants contance = Constants();
+    
   static const BASE_URL = "http://localHost:8082";
 
   static const loginApi = BASE_URL + '/admin/login';
