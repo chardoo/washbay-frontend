@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:bayfrontend/contollers/login_controller.dart';
 
 // ignore: use_key_in_widget_constructors
-class AgentLoginScreen extends GetView<LoginController> {
-  final loginController = Get.put(LoginController());
+class AgentLoginScreen extends StatelessWidget{
+  final LoginController loginController = Get.put(LoginController());
   // static const routeName = '/login-screen';
 
   List<MaterialColor> colorizeColors = [
@@ -142,9 +142,19 @@ class AgentLoginScreen extends GetView<LoginController> {
                                       height: 10,
                                     ),
                                     TextFormField(
-                                      obscureText: true,
-                                      decoration: const InputDecoration(
+                                      obscureText: loginController.ispasswordHidden.value,
+                                      decoration:  InputDecoration(
+                                        suffixIcon: IconButton(
+                                            icon: Icon(Icons.visibility),
+                                            onPressed: () {
+                                              loginController
+                                                      .ispasswordHidden.value =
+                                                  !(loginController
+                                                      .ispasswordHidden.value);
+                                            },
+                                          ),
                                           enabledBorder: OutlineInputBorder(
+                                            
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20)),
                                               borderSide: BorderSide(
@@ -161,8 +171,7 @@ class AgentLoginScreen extends GetView<LoginController> {
                                               255, 255, 254, 253),
                                           focusColor: Color(0xFF800020),
                                           hintText: 'Password',
-                                          suffixIcon:
-                                              Icon(Icons.remove_red_eye),
+                                         
                                           hintStyle: TextStyle(
                                             color: Color.fromARGB(
                                                 255, 173, 167, 169),

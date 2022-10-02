@@ -8,8 +8,11 @@ Widget sideDrawer(
   BuildContext context,
 ) {
   return Drawer(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Color.fromARGB(255, 238, 236, 236),
       child: ListView(children: <Widget>[
+        
+        // ListTile(title: Text("Stanest Bay")),
+        SizedBox(height: 40,),
         ListTile(
           title: const Text('Home'),
           leading: const Icon(Icons.home),

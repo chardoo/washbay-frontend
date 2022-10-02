@@ -10,9 +10,10 @@ import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final http = new HttpService();
+  final http =  HttpService();
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
+   var ispasswordHidden = true.obs;
 
   @override
   void onClose() {

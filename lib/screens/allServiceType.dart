@@ -50,6 +50,8 @@ class ServiceType extends StatelessWidget {
                   .hasData
               ? Container(
                   child: listOfServiceType(context, snapshot.data as dynamic))
+
+                  :snapshot ==null ?  Center(child: Text("Please add a service Type"),)
               : const Center(
                   // render the loading indicator
                   child: CircularProgressIndicator(),
@@ -203,9 +205,12 @@ class ServiceType extends StatelessWidget {
                             width: 10,
                           ),
                           Expanded(
-                              child: FlatButton(
-                                  color: Colors.red,
-                                  textColor: Colors.white,
+                              child: TextButton(
+                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red),
+                              // textStyle: MaterialStateProperty.all(Colors.white)
+                              ),
+                                  // color: Colors.red,
+                                  // textColor: Colors.white,
                                   child: Text('CANCEL'),
                                   onPressed: () =>
                                       Navigator.pop(context, false))),

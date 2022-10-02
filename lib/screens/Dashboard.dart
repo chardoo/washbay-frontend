@@ -15,7 +15,6 @@ import 'package:bayfrontend/apis/pdf/pdf_invoice_api.dart';
 import 'package:bayfrontend/model/userService.dart';
 import 'package:bayfrontend/screens/Sales.dart';
 import 'package:bayfrontend/screens/allServiceType.dart';
-import 'package:bayfrontend/screens/finalReport.dart';
 import 'package:find_dropdown/find_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -63,199 +62,37 @@ class DashBoard extends GetView<HomeController> {
       ),
       body: FutureBuilder<DashboardModel>(
         future: apis.dashboard(),
-        builder: (context, AsyncSnapshot<DashboardModel> snapshot) {
-          if (snapshot.hasData) {
-            // return Text(snapshot.data!.customers.toString());
-            return SafeArea(
-                child: Scaffold(
-              backgroundColor: Color.fromRGBO(230, 233, 239, 4),
-
-              body: Container(
-                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 2.0),
-                child: GridView.count(
-                  crossAxisCount: 4,
-                  padding: EdgeInsets.all(3.0),
-                  children: <Widget>[
-                    makeDashboardItem(
-                        "Total Amount: ${snapshot.data!.service.toString()}",
-                        Icons.monetization_on),
-                    makeDashboardItem(
-                        "Total Customer: ${snapshot.data!.customers.toString()}",
-                        Icons.people),
-                    makeDashboardItem(
-                        "Service Types:  ${snapshot.data!.serviceType.toString()}",
-                        Icons.cleaning_services),
-                    makeDashboardItem("Alphabet", Icons.alarm),
-                  ],
-                ),
-              ),
-
-              // body: Column(
-
-              //   children: [
-              //   Row(
-
-              //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //     children: [
-              //       Expanded(
-              //           child: Card(
-              //         color: Color.fromARGB(255, 218, 217, 214),
-              //         elevation: 20,
-              //         shadowColor: Colors.black,
-              //         child: SizedBox(
-              //             width: 250,
-              //             height: 300,
-              //             child: Padding(
-              //                 padding: const EdgeInsets.all(20.0),
-              //                 child: Column(
-              //                   children: [
-              //                     CircleAvatar(
-              //                       backgroundColor:
-              //                           Color.fromARGB(255, 13, 14, 13),
-              //                       radius: 50,
-              //                       child: Icon(
-              //                         Icons.monetization_on_sharp,
-              //                         size: 50,
-              //                       ), //CircleAvatar
-              //                     ), //CircleAvatar
-              //                     const SizedBox(
-              //                       height: 10,
-              //                     ), //SizedBox
-              //                     Row(
-              //                       children: [
-              //                         Expanded(
-              //                             child: Text(
-              //                           "Total Amount:  ",
-              //                           style: TextStyle(
-              //                             fontSize: 30,
-              //                             color: Colors.green[900],
-              //                             fontWeight: FontWeight.w500,
-              //                           ), //Textstyle
-              //                         )),
-              //                         Expanded(
-              //                             child: Text(
-              //                           snapshot.data!.service.toString(),
-              //                           style: TextStyle(
-              //                             fontSize: 30,
-              //                             color: Colors.green[900],
-              //                             fontWeight: FontWeight.w500,
-              //                           ), //Textstyle
-              //                         )),
-              //                       ],
-              //                     )
-              //                   ],
-              //                 ))),
-              //       )),
-              //       // SizedBox(
-              //       //   width: 15,
-              //       // ),
-              //       Expanded(
-              //           child: Card(
-              //         color: Color.fromARGB(255, 218, 217, 214),
-              //         elevation: 20,
-              //         shadowColor: Colors.black,
-              //         child: SizedBox(
-              //             width: 250,
-              //             height: 300,
-              //             child: Padding(
-              //                 padding: const EdgeInsets.all(20.0),
-              //                 child: Column(
-              //                   children: [
-              //                     CircleAvatar(
-              //                       backgroundColor:
-              //                           Color.fromARGB(255, 30, 31, 30),
-              //                       radius: 50,
-              //                       child: Icon(
-              //                         Icons.people,
-              //                         size: 50,
-              //                       ), //CircleAvatar
-              //                     ), //CircleAvatar
-              //                     const SizedBox(
-              //                       height: 10,
-              //                     ), //SizedBox
-              //                     Row(
-              //                       children: [
-              //                         Expanded(
-              //                             flex: 1,
-              //                             child: Text(
-              //                               "Total Customer: ",
-              //                               style: TextStyle(
-              //                                 fontSize: 30,
-              //                                 color: Colors.green[900],
-              //                                 fontWeight: FontWeight.w500,
-              //                               ), //Textstyle
-              //                             )),
-              //                         Expanded(
-              //                             child: Text(
-              //                           snapshot.data!.customers.toString(),
-              //                           style: TextStyle(
-              //                             fontSize: 30,
-              //                             color: Colors.green[900],
-              //                             fontWeight: FontWeight.w500,
-              //                           ), //Textstyle
-              //                         )),
-              //                       ],
-              //                     )
-              //                   ],
-              //                 ))),
-              //       )),
-              //       Expanded(
-              //           child: Card(
-              //         color: Color.fromARGB(255, 218, 217, 214),
-              //         elevation: 20,
-              //         shadowColor: Colors.black,
-              //         child: SizedBox(
-              //             width: 250,
-              //             height: 300,
-              //             child: Padding(
-              //                 padding: const EdgeInsets.all(20.0),
-              //                 child: Column(
-              //                   children: [
-              //                     CircleAvatar(
-              //                       backgroundColor:
-              //                           Color.fromARGB(255, 22, 22, 22),
-              //                       radius: 50,
-              //                       child: Icon(
-              //                         Icons.local_car_wash_outlined,
-              //                         size: 50,
-              //                       ),
-              //                     ), //CircleAvatar
-              //                     const SizedBox(
-              //                       height: 10,
-              //                     ), //SizedBox
-              //                     Row(
-              //                       children: [
-              //                         Expanded(
-              //                             child: Text(
-              //                           "Service Types: ",
-              //                           style: TextStyle(
-              //                             fontSize: 30,
-              //                             color: Colors.green[900],
-              //                             fontWeight: FontWeight.w500,
-              //                           ), //Textstyle
-              //                         )),
-              //                         Expanded(
-              //                             child: Text(
-              //                           snapshot.data!.serviceType.toString(),
-              //                           style: TextStyle(
-              //                             fontSize: 30,
-              //                             color: Colors.green[900],
-              //                             fontWeight: FontWeight.w500,
-              //                           ), //Textstyle
-              //                         )),
-              //                       ],
-              //                     )
-              //                   ],
-              //                 ))),
-              //       )),
-              //     ],
-              //   )
-              // ]),
-            ));
-          } else {
-            return const CircularProgressIndicator();
-          }
-        },
+        builder: (context, AsyncSnapshot<DashboardModel> snapshot) =>
+            snapshot.hasData
+                ?
+                // return Text(snapshot.data!.customers.toString());
+                SafeArea(
+                    child: Scaffold(
+                    backgroundColor: Color.fromRGBO(230, 233, 239, 4),
+                    body: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20.0, horizontal: 2.0),
+                      child: GridView.count(
+                        crossAxisCount: 4,
+                        padding: EdgeInsets.all(3.0),
+                        children: <Widget>[
+                          makeDashboardItem(
+                              "Total Amount: ${snapshot.data!.service.toString()}",
+                              Icons.monetization_on),
+                          makeDashboardItem(
+                              "Total Customer: ${snapshot.data!.customers.toString()}",
+                              Icons.people),
+                          makeDashboardItem(
+                              "Service Types:  ${snapshot.data!.serviceType.toString()}",
+                              Icons.cleaning_services),
+                          makeDashboardItem("Alphabet", Icons.alarm),
+                        ],
+                      ),
+                    ),
+                  ))
+                : snapshot == null
+                    ? Center(child: Text("Sorry nothing is on this Screen"))
+                    : Center(child: CircularProgressIndicator()),
       ),
     );
   }
@@ -780,16 +617,23 @@ class DashBoard extends GetView<HomeController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('${winner.name.capitalize}   Won',
-                                style: TextStyle(fontSize: 50))
+                            Text('Congratulations!!! to   ${winner.name.capitalize}',
+                                style: TextStyle(fontSize: 30))
                           ],
                         ),
-                        Text(
-                          'call this number:   ${winner.contact}',
+                        Column(children: [
+                             Text(
+                          'call this number',
                           style: TextStyle(
                               color: Color.fromARGB(255, 216, 46, 34),
                               fontSize: 35),
-                        )
+                        ),
+
+                        Text("${winner.contact}",style: TextStyle(
+                              color: Color.fromARGB(255, 22, 22, 22),
+                              fontSize: 35),)
+                        ],)
+                       
                       ],
                     ));
               },

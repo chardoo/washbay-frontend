@@ -48,6 +48,7 @@ class AllUserScreen extends StatelessWidget {
           builder: (BuildContext ctx, AsyncSnapshot<List> snapshot) => snapshot
                   .hasData
               ? Container(child: ListOfUser(context, snapshot.data as dynamic))
+              :snapshot ==null ? Center(child: Text("please add Users"),)
               : const Center(
                   // render the loading indicator
                   child: CircularProgressIndicator(),

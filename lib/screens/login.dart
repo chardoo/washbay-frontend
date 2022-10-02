@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:bayfrontend/contollers/login_controller.dart';
 
 // ignore: use_key_in_widget_constructors
-class LoginScreen extends GetView<LoginController> {
-  final loginController = Get.put(LoginController());
+class LoginScreen extends StatelessWidget {
+  final LoginController controller = Get.put(LoginController());
   // static const routeName = '/login-screen';
 
   List<MaterialColor> colorizeColors = [
@@ -16,7 +16,7 @@ class LoginScreen extends GetView<LoginController> {
     Colors.amber,
     Colors.yellow,
   ];
-  
+
   static const colorizeTextStyle =
       TextStyle(fontSize: 25.0, fontFamily: 'SF', color: Colors.redAccent);
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class LoginScreen extends GetView<LoginController> {
                         ),
                       ),
                       child: Form(
-                        key: loginController.formKey,
+                        key: controller.formKey,
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -135,15 +135,26 @@ class LoginScreen extends GetView<LoginController> {
                                         }
                                         return null;
                                       },
-                                      controller:
-                                          loginController.emailController,
+                                      controller: controller.emailController,
                                     ),
                                     const SizedBox(
                                       height: 10,
                                     ),
+                                     Obx(
+                                  () =>
                                     TextFormField(
-                                      obscureText: true,
-                                      decoration: const InputDecoration(
+                                      obscureText:
+                                          controller.ispasswordHidden.value,
+                                      decoration:  InputDecoration(
+                                          suffixIcon: IconButton(
+                                            icon: Icon(Icons.visibility),
+                                            onPressed: () {
+                                              controller
+                                                      .ispasswordHidden.value =
+                                                  !(controller
+                                                      .ispasswordHidden.value);
+                                            },
+                                          ),
                                           enabledBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20)),
@@ -161,8 +172,6 @@ class LoginScreen extends GetView<LoginController> {
                                               255, 255, 254, 253),
                                           focusColor: Color(0xFF800020),
                                           hintText: 'Password',
-                                          suffixIcon:
-                                              Icon(Icons.remove_red_eye),
                                           hintStyle: TextStyle(
                                             color: Color.fromARGB(
                                                 255, 173, 167, 169),
@@ -173,9 +182,8 @@ class LoginScreen extends GetView<LoginController> {
                                         }
                                         return null;
                                       },
-                                      controller:
-                                          loginController.passwordController,
-                                    ),
+                                      controller: controller.passwordController,
+                                    )),
                                     const SizedBox(
                                       height: 30,
                                     ),
@@ -200,7 +208,7 @@ class LoginScreen extends GetView<LoginController> {
                                                   fontSize: 15),
                                             ),
                                             onPressed: () async {
-                                              if (loginController
+                                              if (controller
                                                   .formKey.currentState!
                                                   .validate()) {
                                                 ScaffoldMessenger.of(context)
@@ -208,8 +216,7 @@ class LoginScreen extends GetView<LoginController> {
                                                         content: Text(
                                                             'Signing in...')));
                                                 bool loggedIn =
-                                                    await loginController
-                                                        .login();
+                                                    await controller.login();
                                                 if (loggedIn == true) {
                                                   Get.offNamed('/SalesPage');
                                                 } else {
