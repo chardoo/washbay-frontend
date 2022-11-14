@@ -1,6 +1,7 @@
 import 'package:bayfrontend/apis/httpService.dart';
 import 'package:bayfrontend/apis/servicehttpService.dart';
 import 'package:bayfrontend/components/listOfServicesTypes.dart';
+import 'package:bayfrontend/contollers/home_controller.dart';
 import 'package:bayfrontend/contollers/serviceType_controller.dart';
 import 'package:bayfrontend/screens/admin/RangeOfSales.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,8 @@ class Sales extends StatelessWidget {
   TextEditingController endDate = TextEditingController();
   final ServiceTypesController serviceTypesController =
       Get.put(ServiceTypesController());
+
+  final HomeController homeController = Get.put(HomeController());
   final serviceTypeModel = ServiceTypeModel("", "", 0);
   Icon customIcon = const Icon(Icons.search);
   Sales({Key? key}) : super(key: key);
@@ -160,19 +163,23 @@ class Sales extends StatelessWidget {
         ),
       ],
       backgroundColor: Colors.black,
-      title: Row(
+      title:  Obx(
+                    () => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text("Todays Sales",
               style: TextStyle(
                   color: Color.fromARGB(255, 252, 252, 252),
                   fontSize: 20,
-                  fontWeight: FontWeight.bold))
+                  fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+              const Text("Total: "),
+              Text(homeController.total.toString())
+            ],
+          ),
         ],
-      ),
+      )),
     );
   }
-
-
-
-  
 }

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:bayfrontend/model/Event.dart';
 import '../model/LoginResponse.dart';
@@ -22,7 +23,7 @@ class ServiceHttpService {
   static const TodaySaleEnpoint = '$BASE_URL/admin/todaySales';
   static const RangeSaleEnpoint = '$BASE_URL/admin/rangeSales';
   static const DashboardEndpoint = '$BASE_URL/admin/getDashbaord';
-
+  var toTal = 0.obs;
   Future<List<SalesModel>> getTodaySales() async {
     var res = await get(Uri.parse(TodaySaleEnpoint));
     List<dynamic> body = jsonDecode(res.body);
@@ -31,6 +32,9 @@ class ServiceHttpService {
           (dynamic item) => SalesModel.fromJson(item),
         )
         .toList();
+    // for (var element in sales) {
+    //   toTal.value = toTal.value + element.amount;
+    // }
     return sales;
   }
 

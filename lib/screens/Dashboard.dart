@@ -350,7 +350,7 @@ class DashBoard extends GetView<HomeController> {
                     homeController.cleareverything();
                     await _launchURLBrowser(
                         "http://localhost:8082/file/" + pdfPath);
-
+                     homeController.toTalSales();
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -561,7 +561,7 @@ class DashBoard extends GetView<HomeController> {
 
                     homeController.cleareverything();
 
-                    print(pdfPath);
+                    homeController.toTalSales();
                     await _launchURLBrowser(
                         "http://localhost:8082/file/" + pdfPath);
                     Navigator.pushAndRemoveUntil(
@@ -610,30 +610,33 @@ class DashBoard extends GetView<HomeController> {
 
                 return Container(
                     color: Color.fromARGB(255, 204, 199, 199),
-                    height: height * 0.6,
-                    width: width * 0.5,
+                    height: height * 0.3,
+                    width: width * 0.3,
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Congratulations!!! to   ${winner.name.capitalize}',
+                            Text(' ${winner.name.capitalize}  Won!!!',
                                 style: TextStyle(fontSize: 30))
                           ],
                         ),
-                        Column(children: [
-                             Text(
-                          'call this number',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 216, 46, 34),
-                              fontSize: 35),
-                        ),
-
-                        Text("${winner.contact}",style: TextStyle(
-                              color: Color.fromARGB(255, 22, 22, 22),
-                              fontSize: 35),)
-                        ],)
-                       
+                        Column(
+                          children: [
+                            Text(
+                              'call this number',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 14, 13, 13),
+                                  fontSize: 35),
+                            ),
+                            Text(
+                              "${winner.contact}",
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 216, 46, 34),
+                                  fontSize: 35),
+                            )
+                          ],
+                        )
                       ],
                     ));
               },

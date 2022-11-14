@@ -50,6 +50,8 @@ class AgentDashBoard extends GetView<HomeController> {
   String userId = '';
   final ServiceTypesController serviceTypesController =
       Get.put(ServiceTypesController());
+
+  final HomeController homeController = Get.put(HomeController());
   final serviceTypeModel = ServiceTypeModel("", "", 0);
 
   bool get wantKeepAlive => false;
@@ -177,15 +179,22 @@ class AgentDashBoard extends GetView<HomeController> {
             )),
       ],
       backgroundColor: Colors.black,
-      title: Row(
-        children: [
-          Text("Todays Sales",
-              style: TextStyle(
-                  color: Color.fromARGB(255, 252, 252, 252),
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold))
-        ],
-      ),
+      title: Obx(() => Row(
+            children: [
+              Text("Todays Sales  ",
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 252, 252, 252),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold)),
+            
+              Row(
+                children: [
+                  const Text(" Total: "),
+                  Text(homeController.total.toString())
+                ],
+              ),
+            ],
+          )),
     );
   }
 
@@ -380,7 +389,7 @@ class AgentDashBoard extends GetView<HomeController> {
                     homeController.cleareverything();
                     await _launchURLBrowser(
                         "http://localhost:8082/file/" + pdfPath);
-
+                    homeController.toTalSales();
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -425,7 +434,7 @@ class AgentDashBoard extends GetView<HomeController> {
                 var width = MediaQuery.of(context).size.width;
 
                 return Container(
-                  color: Color.fromARGB(255, 204, 199, 199),
+                    color: Color.fromARGB(255, 204, 199, 199),
                     height: height * 0.6,
                     width: width * 0.5,
                     child: Form(
@@ -461,7 +470,7 @@ class AgentDashBoard extends GetView<HomeController> {
                                   border: Border.all(
                                       color: Theme.of(context).dividerColor),
                                   borderRadius: BorderRadius.circular(5),
-                                   color: Color.fromARGB(255, 233, 230, 230),
+                                  color: Color.fromARGB(255, 233, 230, 230),
                                 ),
                                 child: (item?.name == null)
                                     ? ListTile(
@@ -590,6 +599,7 @@ class AgentDashBoard extends GetView<HomeController> {
                         selectedItems, controller.total.value, userId);
 
                     homeController.cleareverything();
+                    homeController.toTalSales();
                     await _launchURLBrowser(
                         "http://localhost:8082/file/" + pdfPath);
                     Navigator.pushAndRemoveUntil(
@@ -624,14 +634,14 @@ class AgentDashBoard extends GetView<HomeController> {
 
                 return Container(
                     color: Color.fromARGB(255, 204, 199, 199),
-                    height: height * 0.6,
-                    width: width * 0.5,
+                    height: height * 0.3,
+                    width: width * 0.3,
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('${winner.name.capitalize}   Won',
+                            Text('${winner.name.capitalize}   Won!!!',
                                 style: TextStyle(fontSize: 50))
                           ],
                         ),
@@ -639,7 +649,7 @@ class AgentDashBoard extends GetView<HomeController> {
                           'call this number:   ${winner.contact}',
                           style: TextStyle(
                               color: Color.fromARGB(255, 216, 46, 34),
-                              fontSize: 35),
+                              fontSize: 25),
                         )
                       ],
                     ));

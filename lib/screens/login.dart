@@ -22,11 +22,11 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF800020),
-      body: loginBody(context),
+      body: loginBody(context, controller),
     );
   }
 
-  Widget loginBody(context) {
+  Widget loginBody(context, LoginController controller) {
     var screenSize = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -107,19 +107,21 @@ class LoginScreen extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     TextFormField(
-                                      decoration: const InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20)),
-                                              borderSide: BorderSide(
-                                                  color: Color(0xFF8A3324),
-                                                  width: 2)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20)),
-                                              borderSide: BorderSide(
-                                                  color: Color(0xFF8A3324),
-                                                  width: 2)),
+                                      decoration: InputDecoration(
+                                          // enabledBorder: OutlineInputBorder(
+                                          //     borderRadius:
+                                          //         BorderRadius.all(
+                                          //             Radius.circular(20)),
+                                          //     borderSide: BorderSide(
+                                          //         color: Color(0xFF8A3324),
+                                          //         width: 2)),
+                                          // focusedBorder: OutlineInputBorder(
+                                          //     borderRadius:
+                                          //         BorderRadius.all(
+                                          //             Radius.circular(20)),
+                                          //     borderSide: BorderSide(
+                                          //         color: Color(0xFF8A3324),
+                                          //         width: 2)),
                                           filled: true,
                                           fillColor: Color.fromARGB(
                                               255, 250, 250, 250),
@@ -138,52 +140,60 @@ class LoginScreen extends StatelessWidget {
                                       controller: controller.emailController,
                                     ),
                                     const SizedBox(
-                                      height: 10,
+                                      height: 25,
                                     ),
-                                     Obx(
-                                  () =>
-                                    TextFormField(
-                                      obscureText:
-                                          controller.ispasswordHidden.value,
-                                      decoration:  InputDecoration(
-                                          suffixIcon: IconButton(
-                                            icon: Icon(Icons.visibility),
-                                            onPressed: () {
-                                              controller
-                                                      .ispasswordHidden.value =
-                                                  !(controller
-                                                      .ispasswordHidden.value);
-                                            },
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20)),
-                                              borderSide: BorderSide(
-                                                  color: Color(0xFF8A3324),
-                                                  width: 2)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20)),
-                                              borderSide: BorderSide(
-                                                  color: Color(0xFF8A3324),
-                                                  width: 2)),
-                                          filled: true,
-                                          fillColor: Color.fromARGB(
-                                              255, 255, 254, 253),
-                                          focusColor: Color(0xFF800020),
-                                          hintText: 'Password',
-                                          hintStyle: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 173, 167, 169),
-                                          )),
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please enter  password';
-                                        }
-                                        return null;
-                                      },
-                                      controller: controller.passwordController,
-                                    )),
+                                    Obx(() => TextFormField(
+                                          obscureText:
+                                              controller.ispasswordHidden.value,
+                                          decoration: InputDecoration(
+                                              errorText:
+                                                  controller.isError.value ==
+                                                          true
+                                                      ? "Invalid Credentials"
+                                                      : '',
+                                              suffixIcon: IconButton(
+                                                icon: Icon(Icons.visibility),
+                                                onPressed: () {
+                                                  controller.ispasswordHidden
+                                                          .value =
+                                                      !(controller
+                                                          .ispasswordHidden
+                                                          .value);
+                                                },
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20)),
+                                                  borderSide: BorderSide(
+                                                      color: Color(0xFF8A3324),
+                                                      width: 2)),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20)),
+                                                  borderSide: BorderSide(
+                                                      color: Color(0xFF8A3324),
+                                                      width: 2)),
+                                              filled: true,
+                                              fillColor: Color.fromARGB(
+                                                  255, 255, 254, 253),
+                                              focusColor: Color(0xFF800020),
+                                              hintText: 'Password',
+                                              hintStyle: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 173, 167, 169),
+                                              )),
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Please enter  password';
+                                            }
+                                            return null;
+                                          },
+                                          controller:
+                                              controller.passwordController,
+                                        )),
                                     const SizedBox(
                                       height: 30,
                                     ),
@@ -217,6 +227,10 @@ class LoginScreen extends StatelessWidget {
                                                             'Signing in...')));
                                                 bool loggedIn =
                                                     await controller.login();
+                                                if (loggedIn == false) {
+                                                  controller.isError.value =
+                                                      true;
+                                                }
                                                 if (loggedIn == true) {
                                                   Get.offNamed('/SalesPage');
                                                 } else {

@@ -108,18 +108,18 @@ class AgentLoginScreen extends StatelessWidget{
                                   children: [
                                     TextFormField(
                                       decoration: const InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20)),
-                                              borderSide: BorderSide(
-                                                  color: Color(0xFF8A3324),
-                                                  width: 2)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20)),
-                                              borderSide: BorderSide(
-                                                  color: Color(0xFF8A3324),
-                                                  width: 2)),
+                                          // enabledBorder: OutlineInputBorder(
+                                          //     borderRadius: BorderRadius.all(
+                                          //         Radius.circular(20)),
+                                          //     borderSide: BorderSide(
+                                          //         color: Color(0xFF8A3324),
+                                          //         width: 2)),
+                                          // focusedBorder: OutlineInputBorder(
+                                          //     borderRadius: BorderRadius.all(
+                                          //         Radius.circular(20)),
+                                          //     borderSide: BorderSide(
+                                          //         color: Color(0xFF8A3324),
+                                          //         width: 2)),
                                           filled: true,
                                           fillColor: Color.fromARGB(
                                               255, 250, 250, 250),
@@ -139,11 +139,15 @@ class AgentLoginScreen extends StatelessWidget{
                                           loginController.emailController,
                                     ),
                                     const SizedBox(
-                                      height: 10,
+                                      height: 20,
                                     ),
-                                    TextFormField(
+                                   Obx(() =>  TextFormField(
                                       obscureText: loginController.ispasswordHidden.value,
                                       decoration:  InputDecoration(
+                                         errorText: loginController.isError.value ==
+                                                  true
+                                              ? "Invalid Credentials"
+                                              : '',
                                         suffixIcon: IconButton(
                                             icon: Icon(Icons.visibility),
                                             onPressed: () {
@@ -153,19 +157,20 @@ class AgentLoginScreen extends StatelessWidget{
                                                       .ispasswordHidden.value);
                                             },
                                           ),
-                                          enabledBorder: OutlineInputBorder(
+                                          // enabledBorder: OutlineInputBorder(
                                             
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20)),
-                                              borderSide: BorderSide(
-                                                  color: Color(0xFF8A3324),
-                                                  width: 2)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20)),
-                                              borderSide: BorderSide(
-                                                  color: Color(0xFF8A3324),
-                                                  width: 2)),
+                                            
+                                          //     borderRadius: BorderRadius.all(
+                                          //         Radius.circular(20)),
+                                          //     borderSide: BorderSide(
+                                          //         color: Color(0xFF8A3324),
+                                          //         width: 2)),
+                                          // focusedBorder: OutlineInputBorder(
+                                          //     borderRadius: BorderRadius.all(
+                                          //         Radius.circular(20)),
+                                          //     borderSide: BorderSide(
+                                          //         color: Color(0xFF8A3324),
+                                          //         width: 2)),
                                           filled: true,
                                           fillColor: Color.fromARGB(
                                               255, 255, 254, 253),
@@ -184,7 +189,7 @@ class AgentLoginScreen extends StatelessWidget{
                                       },
                                       controller:
                                           loginController.passwordController,
-                                    ),
+                                    )),
                                     const SizedBox(
                                       height: 30,
                                     ),
@@ -219,6 +224,10 @@ class AgentLoginScreen extends StatelessWidget{
                                                 bool loggedIn =
                                                     await loginController
                                                         .Adminlogin();
+                                                        if (loggedIn == false) {
+                                                  loginController.isError.value =
+                                                      true;
+                                                }
                                                 if (loggedIn == true) {
                                                   Get.offNamed('/dashboard');
                                                 } else {

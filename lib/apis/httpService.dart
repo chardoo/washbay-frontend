@@ -15,7 +15,7 @@ import 'package:bayfrontend/constants/index.dart';
 
 class HttpService {
   Constants contance = Constants();
-    
+
   static const BASE_URL = "http://localHost:8082";
 
   static const loginApi = BASE_URL + '/admin/login';
@@ -36,16 +36,26 @@ class HttpService {
     var res = await post(Uri.parse(loginApi), body: resquestData);
     var body = jsonDecode(res.body);
 
-    LoginResponseObject user = LoginResponseObject.fromJson(body);
-    return user;
+    print(res.statusCode);
+    switch (res.statusCode) {
+      case 200:
+        LoginResponseObject user = LoginResponseObject.fromJson(body);
+        return user;
+      default:
+        return false;
+    }
   }
 
   Future<dynamic> adminlogin(Map<String, dynamic> resquestData) async {
     var res = await post(Uri.parse(AdminloginApi), body: resquestData);
     var body = jsonDecode(res.body);
-
-    LoginResponseObject user = LoginResponseObject.fromJson(body);
-    return user;
+    switch (res.statusCode) {
+      case 200:
+        LoginResponseObject user = LoginResponseObject.fromJson(body);
+        return user;
+      default:
+        return false;
+    }
   }
 
   Future<List<ServiceTypeModel>> getServiceTypes(String resquestData) async {

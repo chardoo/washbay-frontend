@@ -10,6 +10,7 @@ import 'package:bayfrontend/screens/Sales.dart';
 
 import 'package:bayfrontend/screens/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
 
 import 'bindings/serviceType_binding.dart';
 import 'package:bayfrontend/bindings/home_binding.dart';
@@ -20,6 +21,7 @@ import 'package:bayfrontend/components/serviceType/DetailsServiceType.dart';
 import 'contollers/serviceType_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:bayfrontend/data/db.dart';
 
 // import 'screens/SignUp.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
@@ -30,6 +32,9 @@ import 'package:get/get.dart';
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var prefs = await SharedPreferences.getInstance();
+  Database databacreation = await localDb.db.initDb("myDB");
+  print("hello how are you");
+  print(databacreation);
   Get.put(prefs);
   Get.lazyPut(() => ServiceTypesController());
   Get.lazyPut(

@@ -10,10 +10,11 @@ import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final http =  HttpService();
+  final http = HttpService();
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
-   var ispasswordHidden = true.obs;
+  var ispasswordHidden = true.obs;
+  var isError = false.obs;
 
   @override
   void onClose() {
@@ -54,15 +55,18 @@ class LoginController extends GetxController {
     };
 
     var response = await http.login(loginDetails);
+    if (response == false) {
+      return false;
+    } else {
+      await AuthService.setToken(response.token);
+      await AuthService.setId(response.id);
+      await AuthService.setEmail(response.email);
+      await AuthService.setRole(response.role);
 
-    await AuthService.setToken(response.token);
-    await AuthService.setId(response.id);
-    await AuthService.setEmail(response.email);
-    await AuthService.setRole(response.role);
-  
-    var userController = Get.put(UserController());
-    userController.authenticated = true;
-    return response.isValid;
+      var userController = Get.put(UserController());
+      userController.authenticated = true;
+      return true;
+    }
   }
 
   // ignore: non_constant_identifier_names
@@ -73,13 +77,19 @@ class LoginController extends GetxController {
       "grant_type": "password"
     };
     var response = await http.adminlogin(loginDetails);
-    await AuthService.setToken(response.token);
-    await AuthService.setId(response.id);
-    await AuthService.setEmail(response.email);
-    await AuthService.setRole(response.role);
+    if (response == false) {
+      
+      return false;
+    } else {
+      await AuthService.setToken(response.token);
+      await AuthService.setId(response.id);
+      await AuthService.setEmail(response.email);
+      await AuthService.setRole(response.role);
 
-    var userController = Get.put(UserController());
-    userController.authenticated = true;
-    return response.isValid;
+      var userController = Get.put(UserController());
+      passwordController.clear();
+      userController.authenticated = true;
+      return true;
+    }
   }
 }

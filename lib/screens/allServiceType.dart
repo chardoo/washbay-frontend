@@ -139,7 +139,7 @@ class ServiceType extends StatelessWidget {
                         controller: serviceTypesController.priceController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter the name of the service';
+                            return 'Please enter the price of this Service';
                           }
                           if (int.parse(value) <= 0) {
                             return 'This field must be greater than 0';

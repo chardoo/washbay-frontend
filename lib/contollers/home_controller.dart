@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bayfrontend/apis/servicehttpService.dart';
 import 'package:bayfrontend/model/Service.dart';
 import 'package:bayfrontend/model/User.dart';
 import 'package:bayfrontend/model/userService.dart';
@@ -10,7 +11,7 @@ import 'package:bayfrontend/model/ServiceType.dart';
 
 class HomeController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  RxInt total = 0.obs;
+  var total = 0.obs;
   RxInt sumtotal = 0.obs;
 
   void calculate(List<ServiceTypeModel> selectedItems) {
@@ -29,7 +30,7 @@ class HomeController extends GetxController {
 
   final Rx<List<ServiceTypeModel>> _serviceType = Rx([]);
   HttpService apis = HttpService();
-
+  ServiceHttpService serviceHttpService = ServiceHttpService();
   List<ServiceTypeModel> get serviceType {
     return _serviceType.value;
   }
@@ -54,8 +55,16 @@ class HomeController extends GetxController {
   @override
   onInit() async {
     var data = await apis.getServiceTypes("richCode");
-    setServiceTypes(data);
+    toTalSales();
     super.onInit();
+  }
+
+  void toTalSales() async {
+    var sales = await serviceHttpService.getTodaySales();
+    total.value = 0;
+    for (var element in sales) {
+      total.value = total.value + element.amount;
+    }
   }
 
   Future<String> addCustomerSales(
