@@ -186,7 +186,6 @@ class AgentDashBoard extends GetView<HomeController> {
                       color: Color.fromARGB(255, 252, 252, 252),
                       fontSize: 20,
                       fontWeight: FontWeight.bold)),
-            
               Row(
                 children: [
                   const Text(" Total: "),
@@ -366,14 +365,17 @@ class AgentDashBoard extends GetView<HomeController> {
               },
             ),
             actions: <Widget>[
-              FlatButton(
-                  color: Colors.red,
-                  textColor: Colors.white,
+              TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.red, // foreground
+                  ),
                   child: Text('CANCEL'),
                   onPressed: () => Navigator.pop(context, false)),
-              FlatButton(
-                color: Color.fromARGB(255, 16, 24, 41),
-                textColor: Colors.white,
+              TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: const TextStyle(color: Colors.white),
+                    backgroundColor: Color.fromARGB(255, 12, 6, 5), // foreground
+                  ),
                 child: Text('Save and Print'),
                 onPressed: () async {
                   if (homeController.formKey.currentState!.validate() &&
@@ -576,14 +578,17 @@ class AgentDashBoard extends GetView<HomeController> {
               },
             ),
             actions: <Widget>[
-              FlatButton(
-                  color: Colors.red,
-                  textColor: Colors.white,
+            TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.red, // foreground
+                  ),
                   child: Text('CANCEL'),
                   onPressed: () => Navigator.pop(context, false)),
-              FlatButton(
-                color: Color.fromARGB(255, 16, 24, 41),
-                textColor: Colors.white,
+             TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: const TextStyle(color: Colors.white),
+                    backgroundColor: Color.fromARGB(255, 12, 6, 5), // foreground
+                  ),
                 child: Text('Save and Print'),
                 onPressed: () async {
                   if (homeController.formKey.currentState!.validate() &&

@@ -330,15 +330,18 @@ class DashBoard extends GetView<HomeController> {
               },
             ),
             actions: <Widget>[
-              FlatButton(
-                  color: Colors.red,
-                  textColor: Colors.white,
-                  child: Text('CANCEL'),
+               TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.red, // foreground
+                  ),
+                  child: const Text('CANCEL'),
                   onPressed: () => Navigator.pop(context, false)),
-              FlatButton(
-                color: Color.fromARGB(255, 16, 24, 41),
-                textColor: Colors.white,
-                child: Text('Save and Print'),
+             TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 238, 236, 236),
+                    textStyle: const TextStyle(color: Colors.black) // foreground
+                  ),
+                child: const Text('Save and Print'),
                 onPressed: () async {
                   if (homeController.formKey.currentState!.validate() &&
                       selectedItems.isNotEmpty) {
@@ -540,15 +543,18 @@ class DashBoard extends GetView<HomeController> {
               },
             ),
             actions: <Widget>[
-              FlatButton(
-                  color: Colors.red,
-                  textColor: Colors.white,
-                  child: Text('CANCEL'),
+             TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.red, // foreground
+                  ),
+                  child:const Text('CANCEL'),
                   onPressed: () => Navigator.pop(context, false)),
-              FlatButton(
-                color: Color.fromARGB(255, 16, 24, 41),
-                textColor: Colors.white,
-                child: Text('Save and Print'),
+              TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    textStyle: const  TextStyle(color: Colors.white) // foreground
+                  ),
+                child: const Text('Save and Print'),
                 onPressed: () async {
                   if (homeController.formKey.currentState!.validate() &&
                       userId != '' &&
